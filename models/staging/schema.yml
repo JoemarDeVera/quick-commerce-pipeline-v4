@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staged orders from fact_orders table"
+    columns:
+      - name: order_id
+        description: "Unique order identifier"
+        tests:
+          - unique
+          - not_null
+      - name: order_value
+        tests:
+          - not_null
+      - name: delivery_time_min
+        tests:
+          - not_null
+
+  - name: stg_customers
+    description: "Staged customers with age groups"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: age_group
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Gen Z', 'Millennial', 'Gen X', 'Boomer']
